@@ -17,4 +17,15 @@ for (const [sourceRelative, targetRelative] of copies) {
   fs.copyFileSync(source, target);
 }
 
-console.log(`PBYS birleşik ana sayfa v3 uygulandı: ${copies.length} dosya.`);
+const layoutPath = path.join(root, 'src/components/Layout.tsx');
+let layoutSource = fs.readFileSync(layoutPath, 'utf8');
+const returnMarker = '  return <div className={styles.shell}>';
+const scrollResetEffect = `  useEffect(() => {\n    if ('scrollRestoration' in window.history) {\n      window.history.scrollRestoration = 'manual';\n    }\n    const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });\n    resetScroll();\n    const frame = window.requestAnimationFrame(resetScroll);\n    const timer = window.setTimeout(resetScroll, 80);\n    return () => {\n      window.cancelAnimationFrame(frame);\n      window.clearTimeout(timer);\n    };\n  }, [location.pathname, location.search]);\n\n`;
+
+if (!layoutSource.includes("window.history.scrollRestoration = 'manual'")) {
+  if (!layoutSource.includes(returnMarker)) throw new Error('Layout.tsx dönüş işareti bulunamadı.');
+  layoutSource = layoutSource.replace(returnMarker, `${scrollResetEffect}${returnMarker}`);
+  fs.writeFileSync(layoutPath, layoutSource, 'utf8');
+}
+
+console.log(`PBYS birleşik ana sayfa v3 uygulandı: ${copies.length} dosya. Mobil açılışta scroll sıfırlama aktif.`);
