@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../auth/AuthContext';
-import { supabase } from '../../lib/supabase';
+import { useAuth } from '../auth/AuthContext';
+import { supabase } from '../lib/supabase';
 import styles from './AnnouncementPopup.module.css';
 
 type Announcement = {
