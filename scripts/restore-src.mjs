@@ -4,12 +4,25 @@ import { brotliDecompressSync } from 'node:zlib';
 
 const root = process.cwd();
 const bundleDir = path.join(root, 'build-src');
-const partNames = fs.readdirSync(bundleDir)
-  .filter((name) => /^src_br\.part\d+\.txt$/.test(name))
-  .sort();
+const partNames = [
+  'src_br.part01.txt',
+  'src_br.part02.txt',
+  'src_br.part03.txt',
+  'src_br.part04.txt',
+  'src_br.part05.txt',
+  'src_br.part06.txt',
+  'src_br.part07a.txt',
+  'src_br.part07b.txt',
+  'src_br.part07c.txt',
+  'src_br.part07d.txt',
+  'src_br.part08.txt',
+  'src_br.part09.txt',
+];
 
-if (partNames.length !== 9) {
-  throw new Error(`PBYS source bundle eksik: ${partNames.length}/9 parça bulundu.`);
+for (const name of partNames) {
+  if (!fs.existsSync(path.join(bundleDir, name))) {
+    throw new Error(`PBYS source bundle eksik: ${name}`);
+  }
 }
 
 const base64 = partNames
