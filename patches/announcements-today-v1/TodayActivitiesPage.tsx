@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { formatTrDate, todayIso } from '../../lib/date';
-import { supabase } from '../../lib/supabase';
+import { formatTrDate, todayIso } from '../lib/date';
+import { supabase } from '../lib/supabase';
 import styles from './TodayActivitiesPage.module.css';
 
 type Activity = {
