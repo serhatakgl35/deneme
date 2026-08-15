@@ -33,10 +33,18 @@ const cssPatch = `
   .desktopDateTime span{display:block;font-size:10px;line-height:1.2;color:#829095;font-weight:500}
   .desktopDateTime strong{display:block;font-size:11px;line-height:1.2;color:#62757b;font-weight:800;font-variant-numeric:tabular-nums}
 }
+
+/* mobile date-time emphasis v1 */
+@media(max-width:820px){
+  .desktopDateTime{display:flex!important;align-items:center;gap:7px;margin-top:4px!important;color:#fff!important}
+  .desktopDateTime span,.desktopDateTime strong{color:#fff!important;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.42)}
+  .desktopDateTime span{font-size:12px;font-weight:800}
+  .desktopDateTime strong{font-size:13px;font-weight:900;font-variant-numeric:tabular-nums}
+}
 `;
 
 if (!css.includes('/* desktop header final v1 */')) css += cssPatch;
 
 fs.writeFileSync(layoutPath, layout);
 fs.writeFileSync(cssPath, css);
-console.log('PB amblemi kaldırıldı; masaüstü ana sayfa tarih ve saat alt alta gösteriliyor.');
+console.log('PB amblemi kaldırıldı; masaüstü tarih/saat düzeni ve mobil beyaz tarih/saat vurgusu uygulandı.');
