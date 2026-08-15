@@ -1,0 +1,10 @@
+.overlay{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(7,25,28,.56);backdrop-filter:blur(6px)}
+.modal{width:min(560px,100%);max-height:min(86dvh,760px);overflow:auto;background:#fff;border:1px solid #dbe7e5;border-radius:24px;padding:24px;box-shadow:0 28px 90px rgba(4,24,27,.34);position:relative}
+.icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:#123f3b;color:#fff;font-size:20px;font-weight:950;margin-bottom:14px;box-shadow:0 8px 20px rgba(18,63,59,.18)}
+.eyebrow{display:block;font-size:8.5px;font-weight:950;letter-spacing:1.3px;color:#168c7d;margin-bottom:6px}
+.modal h2{margin:0;color:#15282d;font-size:24px;line-height:1.16;letter-spacing:-.5px}
+.modal time{display:block;margin-top:7px;color:#849397;font-size:9.5px}
+.body{margin-top:17px;padding:16px;border:1px solid #e1e9e7;background:#f8fbfa;border-radius:16px;color:#435b60;font-size:12px;line-height:1.7;white-space:pre-wrap}
+.error{margin-top:12px;border:1px solid #efceca;background:#fff1ef;color:#9b3730;border-radius:12px;padding:9px 11px;font-size:10px}
+.actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.primary,.secondary{min-height:42px;border-radius:12px;padding:0 16px;font-size:10.5px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}.primary{border:0;background:#0d8f82;color:#fff;cursor:pointer}.primary:disabled{opacity:.55;cursor:not-allowed}.secondary{border:1px solid #dce6e4;background:#f4f8f7;color:#355157}.remaining{display:block;margin-top:10px;text-align:right;color:#89979a;font-size:8.5px}
+@media(max-width:620px){.overlay{padding:0;align-items:flex-end}.modal{width:100%;max-height:92dvh;border-radius:22px 22px 0 0;border-bottom:0;padding:19px 16px 18px}.icon{width:38px;height:38px;border-radius:12px;margin-bottom:11px}.modal h2{font-size:20px}.body{font-size:11px;padding:14px}.actions{display:grid;grid-template-columns:1fr 1fr}.primary,.secondary{width:100%;min-height:44px}.remaining{text-align:center}}
