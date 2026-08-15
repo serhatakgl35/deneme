@@ -1,5 +1,7 @@
 # PBYS 2.0 — Yeni Nesil Personel Bilgi Yönetim Sistemi
 
+> Test arayüzü güncellendi: 15.08.2026 · Sade arayüz v2 (global sol menü kaldırıldı, modül kartları ve bölüm içi gezinme eklendi).
+
 Bu proje mevcut PBYS V9'u yamalamak yerine modüler ve test edilebilir bir temel üzerinde yeniden kurmak için hazırlanmıştır.
 
 ## Alpha 2 güncel durum
