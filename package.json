@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/restore-src.mjs && node scripts/apply-ui-v3.mjs && node scripts/apply-dashboard-v4.mjs && node scripts/apply-activities-future-only.mjs && node scripts/apply-leave-pages-v1.mjs && node scripts/apply-leave-visibility-v1.mjs && node scripts/apply-home-summary-v1.mjs && node scripts/apply-personnel-home-meal-v1.mjs && node scripts/apply-team-today-v1.mjs && tsc -b && vite build",
+    "build": "node scripts/restore-src.mjs && node scripts/apply-ui-v3.mjs && node scripts/apply-dashboard-v4.mjs && node scripts/apply-activities-future-only.mjs && node scripts/apply-leave-pages-v1.mjs && node scripts/apply-leave-visibility-v1.mjs && node scripts/apply-home-summary-v1.mjs && node scripts/apply-personnel-home-meal-v1.mjs && node scripts/apply-team-today-v1.mjs && node scripts/apply-fixed-temp-password-v1.mjs && tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run"
   },
