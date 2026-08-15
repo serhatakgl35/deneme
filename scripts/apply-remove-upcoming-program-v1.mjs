@@ -10,7 +10,8 @@ const markerIndex = markers
   .find((index) => index >= 0);
 
 if (markerIndex === undefined) {
-  throw new Error('Yaklaşan Program bölümü bulunamadı.');
+  console.log('Yaklaşan Program bölümü zaten bulunmuyor; kaldırma adımı atlandı.');
+  process.exit(0);
 }
 
 const sectionStart = source.lastIndexOf('<section', markerIndex);
