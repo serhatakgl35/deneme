@@ -10,10 +10,12 @@ let dashboard = fs.readFileSync(dashboardPath, 'utf8');
 let layout = fs.readFileSync(layoutPath, 'utf8');
 let layoutCss = fs.readFileSync(layoutCssPath, 'utf8');
 
-const managerCardFrom = '        <Link to="/personel" className={`${styles.summaryCard} ${styles.summaryLink} ${styles.summaryEmphasis} ${styles.personnelSummaryCard}`}>`;
-const managerCardTo = '        <Link to="/yoklama" className={`${styles.summaryCard} ${styles.summaryLink} ${styles.summaryEmphasis} ${styles.personnelSummaryCard}`}>`;
-if (!dashboard.includes(managerCardFrom)) throw new Error('Ana sayfa personel kartı bağlantısı bulunamadı.');
-dashboard = dashboard.replace(managerCardFrom, managerCardTo);
+const managerCardFrom = '        <Link to="/personel" className={`${styles.summaryCard} ${styles.summaryLink} ${styles.summaryEmphasis} ${styles.personnelSummaryCard}`}> ';
+const managerCardTo = '        <Link to="/yoklama" className={`${styles.summaryCard} ${styles.summaryLink} ${styles.summaryEmphasis} ${styles.personnelSummaryCard}`}> ';
+const compactFrom = managerCardFrom.trimEnd();
+const compactTo = managerCardTo.trimEnd();
+if (!dashboard.includes(compactFrom)) throw new Error('Ana sayfa personel kartı bağlantısı bulunamadı.');
+dashboard = dashboard.replace(compactFrom, compactTo);
 
 const homeSubtitleFrom = "              <p>{isHome ? 'İhtiyacınız olan bölümü seçin.' : `${activeSection?.label ?? 'PBYS'} bölümü`}</p>";
 const homeSubtitleTo = "              <p>{isHome ? `${liveDate} · ${liveTime}` : `${activeSection?.label ?? 'PBYS'} bölümü`}</p>";
