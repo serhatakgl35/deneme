@@ -12,7 +12,9 @@ function replaceOnce(source,label,from,to){
 
 const copies=[
   ['patches/leave-v1/PendingLeaveApprovalsPage.tsx','src/pages/PendingLeaveApprovalsPage.tsx'],
-  ['patches/leave-v1/MyLeavesPage.tsx','src/pages/MyLeavesPage.tsx']
+  ['patches/leave-v1/MyLeavesPage.tsx','src/pages/MyLeavesPage.tsx'],
+  ['patches/leave-v1/ApprovedLeavesPage.tsx','src/pages/ApprovedLeavesPage.tsx'],
+  ['patches/leave-v1/ApprovedLeavesPage.module.css','src/pages/ApprovedLeavesPage.module.css']
 ];
 for(const [from,to] of copies){
   const src=path.join(root,from); const dest=path.join(root,to);
@@ -25,6 +27,7 @@ let app=read('src/app/App.tsx');
 app=replaceOnce(app,'App imports',
 `import { LeaveHistoryPage } from '../pages/LeaveHistoryPage';`,
 `import { LeaveHistoryPage } from '../pages/LeaveHistoryPage';
+import { ApprovedLeavesPage } from '../pages/ApprovedLeavesPage';
 import { MyLeavesPage } from '../pages/MyLeavesPage';
 import { PendingLeaveApprovalsPage } from '../pages/PendingLeaveApprovalsPage';`);
 app=replaceOnce(app,'App routes',
@@ -32,6 +35,7 @@ app=replaceOnce(app,'App routes',
         <Route path="/izin-gecmisi" element={<RoleGuard roles={['administrative']}><LeaveHistoryPage/></RoleGuard>}/>` ,
 `        <Route path="/izin" element={<LeaveEntryPage/>}/>
         <Route path="/izin-onaylari" element={<RoleGuard roles={['commander']}><PendingLeaveApprovalsPage/></RoleGuard>}/>
+        <Route path="/onaylanan-izinler" element={<RoleGuard roles={['commander']}><ApprovedLeavesPage/></RoleGuard>}/>
         <Route path="/benim-izinlerim" element={<MyLeavesPage/>}/>
         <Route path="/izin-gecmisi" element={<RoleGuard roles={['administrative']}><LeaveHistoryPage/></RoleGuard>}/>`);
 write('src/app/App.tsx',app);
@@ -47,6 +51,7 @@ layout=replaceOnce(layout,'İzin menüsü',
 `  { key: 'izinler', label: 'İzinler', icon: 'calendar', items: [
     { to: '/izin', icon: 'calendar', label: 'İzin Talebi', roles: ['admin','administrative','team_commander','staff','cook','tabldot'] },
     { to: '/izin-onaylari', icon: 'calendarDays', label: 'Onay Bekleyen İzinler', roles: ['admin','commander'] },
+    { to: '/onaylanan-izinler', icon: 'calendarDays', label: 'Onaylanan İzinler', roles: ['admin','commander'] },
     { to: '/benim-izinlerim', icon: 'folder', label: 'Benim İzinlerim' },
     { to: '/izin-gecmisi', icon: 'folder', label: 'İzin / Rapor Geçmişi', roles: ['admin','administrative'] },
     { to: '/izin-takvimi', icon: 'calendarDays', label: 'İzin Takvimi', roles: ['admin','commander','administrative','team_commander'] },
@@ -78,6 +83,7 @@ dashboard=dashboard.replace(`<Link to="/izin" className={\`${'${styles.summaryCa
 dashboard=replaceOnce(dashboard,'İzin işlem merkezi bağlantıları',
 `            <HubLink to="/izin" icon="leave" title="İzin İşlemleri" detail="Yeni talep ve onay süreci" meta={canApprove&&pendingLeaves.length?\`${'${pendingLeaves.length}'} bekleyen\`:undefined}/>` ,
 `            {canApprove?<HubLink to="/izin-onaylari" icon="leave" title="Onay Bekleyen İzinler" detail="Sadece onay bekleyen talepler" meta={pendingLeaves.length?\`${'${pendingLeaves.length}'} bekleyen\`:undefined}/>:null}
+            {canApprove?<HubLink to="/onaylanan-izinler" icon="calendar" title="Onaylanan İzinler" detail="Onaylayan yetkili ve izin ayrıntıları"/>:null}
             {!isCommander?<HubLink to="/izin" icon="leave" title="İzin Talebi" detail="Yeni izin talebi oluştur"/>:null}
             <HubLink to="/benim-izinlerim" icon="history" title="Benim İzinlerim" detail="Kendi izin kayıtlarınızı görüntüleyin"/>`);
 write('src/pages/DashboardPage.tsx',dashboard);
