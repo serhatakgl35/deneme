@@ -1,0 +1,45 @@
+.backdrop{position:fixed;inset:0;z-index:1900;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(12,25,29,.72);backdrop-filter:blur(5px)}
+.cameraSheet,.photoSheet{box-sizing:border-box;width:min(100%,560px);max-height:calc(100dvh - 36px);overflow:auto;border:1px solid rgba(255,255,255,.18);border-radius:22px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.34)}
+.sheetHead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid #e5ecee;background:linear-gradient(135deg,#f7fbfb,#edf8f6)}
+.sheetHead span{display:block;margin-bottom:3px;color:#168778;font-size:9px;font-weight:900;letter-spacing:.13em}
+.sheetHead h3{margin:0;color:#21373c;font-size:18px}
+.sheetHead>button{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:50%;background:#e4efef;color:#40575d;font-size:24px;line-height:1;cursor:pointer}
+.sheetHead>button:disabled{opacity:.55;cursor:not-allowed}
+.cameraHint{margin:12px 16px 8px;color:#61757a;font-size:11px;line-height:1.45}
+.error{margin:10px 16px;padding:10px 12px;border:1px solid #efc8c4;border-radius:11px;background:#fff0ef;color:#9e332e;font-size:11px;font-weight:750}
+.cameraFrame{position:relative;display:grid;place-items:center;min-height:320px;margin:10px 16px;overflow:hidden;border-radius:17px;background:#0f1c20;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.cameraFrame video,.cameraFrame img{display:block;width:100%;max-height:min(62dvh,560px);object-fit:contain;background:#0f1c20}
+.liveVideo{transform:scaleX(-1)}
+.cameraLoading{position:absolute;inset:0;display:grid;place-items:center;color:#e8f3f2;font-size:12px;font-weight:800}
+.cameraActions,.viewerActions{display:flex;justify-content:flex-end;gap:8px;padding:8px 16px 16px;flex-wrap:wrap}
+.cameraActions button,.viewerActions button,.returnButton{min-height:42px;border:0;border-radius:11px;padding:9px 14px;font:inherit;font-size:11px;font-weight:900;cursor:pointer}
+.cameraActions button:disabled{opacity:.55;cursor:not-allowed}
+.secondaryButton{background:#eaf0f1;color:#3e555b}
+.captureButton{background:#1d8f80;color:#fff;box-shadow:0 8px 20px rgba(29,143,128,.22)}
+.confirmButton{background:#187767;color:#fff;box-shadow:0 8px 20px rgba(24,119,103,.2)}
+.returnCard{border-color:#bfe5dd!important;background:linear-gradient(135deg,#f5fcfa,#eaf8f4)!important}
+.returnCardContent{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.returnCardContent h3{margin:0 0 4px;color:#176f63;font-size:16px}
+.returnCardContent p{margin:0;color:#55706f;font-size:11px;line-height:1.45}
+.returnButton{white-space:nowrap;background:#187767;color:#fff;box-shadow:0 8px 18px rgba(24,119,103,.2)}
+.returnStatus{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:145px}
+.returnStatus strong{color:#176f63;font-size:10.5px}
+.returnStatus small{color:#718489;font-size:9.5px}
+.photoButton{min-height:30px;border:1px solid #b7ddd6;border-radius:8px;padding:5px 8px;background:#effaf7;color:#176f63;font:inherit;font-size:9.5px;font-weight:900;cursor:pointer}
+.mutedStatus{color:#7d8c90;font-size:10px;font-weight:750}
+.returnTime{margin:14px 16px 8px;padding:10px 12px;border-radius:11px;background:#eef8f5;color:#496762;font-size:11px}
+.returnTime strong{color:#176f63}
+.returnPhoto{display:block;box-sizing:border-box;width:calc(100% - 32px);max-height:62dvh;object-fit:contain;margin:10px 16px;border-radius:15px;background:#102024}
+.viewerMessage{margin:16px;padding:18px;border-radius:13px;background:#f0f4f5;color:#62767b;text-align:center;font-size:11px;font-weight:750}
+
+@media(max-width:600px){
+  .backdrop{align-items:flex-end;padding:0;background:rgba(12,25,29,.76)}
+  .cameraSheet,.photoSheet{width:100%;max-height:94dvh;border-radius:20px 20px 0 0;border-bottom:0}
+  .cameraFrame{min-height:300px;margin:8px 12px}
+  .cameraHint,.error{margin-left:12px;margin-right:12px}
+  .cameraActions,.viewerActions{padding:8px 12px 14px}
+  .cameraActions button{flex:1;min-height:46px;font-size:12px}
+  .returnCardContent{align-items:stretch;flex-direction:column}
+  .returnButton{width:100%;min-height:46px}
+  .returnStatus{min-width:0}
+}
