@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useAuth } from '../auth/AuthContext';
 import { formatTrDate } from '../lib/date';
 import { supabase } from '../lib/supabase';
 import styles from './LeavePage.module.css';
@@ -37,6 +38,9 @@ function errText(error:unknown){
 }
 
 export function PendingLeaveApprovalsPage(){
+  const { account } = useAuth();
+  const canApprove = account.roles.includes('admin') || account.roles.includes('commander');
+  const isTeamCommander = account.roles.includes('team_commander') && !canApprove;
   const [personnel,setPersonnel]=useState<PersonnelRow[]>([]);
   const [leaves,setLeaves]=useState<LeaveRow[]>([]);
   const [loading,setLoading]=useState(true);
@@ -65,7 +69,7 @@ export function PendingLeaveApprovalsPage(){
   const personnelById=useMemo(()=>new Map(personnel.map(person=>[person.id,person])),[personnel]);
 
   async function decide(row:LeaveRow,decision:'approved'|'rejected'){
-    if(!supabase) return;
+    if(!supabase || !canApprove) return;
     setBusyId(row.id); setMessage(''); setError('');
     try{
       const {error:rpcError}=await supabase.rpc('decide_leave_request',{p_request_id:row.id,p_decision:decision});
@@ -77,12 +81,13 @@ export function PendingLeaveApprovalsPage(){
   }
 
   return <div className={styles.stack}>
-    <div className={styles.pageHead}><div><h2>Onay Bekleyen İzinler</h2></div></div>
+    <div className={styles.pageHead}><div><h2>{isTeamCommander?'İzin Talepleri':'Onay Bekleyen İzinler'}</h2></div></div>
 
     <div className={styles.summaryGrid}>
       <div className={styles.summaryCard}><span>Onay bekleyen</span><strong>{loading?'—':leaves.length}</strong></div>
     </div>
 
+    {isTeamCommander?<div className={styles.infoBox}>Bu ekran Tim Komutanları için salt okunurdur. İzin taleplerini görebilirsiniz; onaylama ve reddetme işlemleri yalnızca Karakol Komutanı ve Admin tarafından yapılır.</div>:null}
     {message?<div className={styles.message}>{message}</div>:null}
     {error?<div className={styles.error}>{error}</div>:null}
 
@@ -92,7 +97,7 @@ export function PendingLeaveApprovalsPage(){
       {!loading&&leaves.length===0?<div className={styles.empty}>Onay bekleyen izin talebi yok.</div>:null}
       {leaves.length>0?<div className={styles.tableWrap}>
         <table className={styles.table}>
-          <thead><tr><th>Personel</th><th>Tür</th><th>Tarih</th><th>Gün</th><th>Yer / Açıklama</th><th>Durum</th><th>İşlem</th></tr></thead>
+          <thead><tr><th>Personel</th><th>Tür</th><th>Tarih</th><th>Gün</th><th>Yer / Açıklama</th><th>Durum</th>{canApprove?<th>İşlem</th>:null}</tr></thead>
           <tbody>{leaves.map(row=>{
             const person=personnelById.get(row.personnel_id);
             const busy=busyId===row.id;
@@ -103,7 +108,7 @@ export function PendingLeaveApprovalsPage(){
               <td><strong>{row.day_count}</strong></td>
               <td>{row.city??'—'}{row.note?<><br/><small>{row.note}</small></>:null}</td>
               <td><span className={`${styles.status} ${styles.pending}`}>Onay Bekliyor</span></td>
-              <td><div className={styles.actions}><button className={styles.approve} disabled={Boolean(busyId)} onClick={()=>void decide(row,'approved')}>{busy?'İşleniyor…':'Onayla'}</button><button className={styles.danger} disabled={Boolean(busyId)} onClick={()=>void decide(row,'rejected')}>Reddet</button></div></td>
+              {canApprove?<td><div className={styles.actions}><button className={styles.approve} disabled={Boolean(busyId)} onClick={()=>void decide(row,'approved')}>{busy?'İşleniyor…':'Onayla'}</button><button className={styles.danger} disabled={Boolean(busyId)} onClick={()=>void decide(row,'rejected')}>Reddet</button></div></td>:null}
             </tr>;
           })}</tbody>
         </table>
